@@ -43,9 +43,20 @@ case "$1" in
     scripts/applyPatches.sh "$target" "$branch" || exit 1
   )
   ;;
+  "pb")
+  (
+    set -e
+    cd "$basedir"
+    scripts/init.sh "$target" "$branch" || exit 1
+    scripts/applyPatches.sh "$target" "$branch" || exit 1
+    cd "$basedir/Jobs" || exit 1
+    mvn package || exit 1
+  )
+  ;;
   *)
     echo " Commands:"
     echo "  * rb, rebuild            | Rebuild patches."
     echo "  * p, patch               | Apply all patches to the project without building it."
+    echo "  * pb                     | Apply all patches to the project and build the project."
   ;;
 esac
