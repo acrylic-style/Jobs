@@ -2,7 +2,7 @@
 export target="$1"
 export branch="$2"
 basedir="$(pwd -P)"
-git="git -c commit.gpgsign=false -c core.safecrlf=false"
+git="git -c commit.gpgsign=false -c core.safecrlf=false -c user.name=Jobs -c user.email=auto@mated.null"
 echo "Rebuilding patch files... ($target)"
 mkdir -p "$basedir/$target-Patches"
 cd "$basedir/$target-Patches" || exit 1

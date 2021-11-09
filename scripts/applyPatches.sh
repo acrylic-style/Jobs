@@ -2,7 +2,7 @@
 export target="$1"
 export branch="$2"
 basedir="$(pwd -P)"
-git="git -c commit.gpgsign=false"
+git="git -c commit.gpgsign=false -c user.name=Jobs -c user.email=auto@mated.null"
 apply="$git am --3way --ignore-whitespace"
 windows="$([[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]] && echo "true" || echo "false")"
 mkdir -p "$basedir/$target-Patches"

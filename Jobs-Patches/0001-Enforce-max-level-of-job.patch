@@ -5,7 +5,7 @@ Subject: [PATCH] Enforce max-level of job
 
 
 diff --git a/src/main/java/com/gamingmesh/jobs/container/JobProgression.java b/src/main/java/com/gamingmesh/jobs/container/JobProgression.java
-index 354566f06043967a5b5dd44e74fd9d04f811f3b7..df2a19fa2fb09ee49a8c8e0afb0716a6714e3893 100644
+index 354566f06043967a5b5dd44e74fd9d04f811f3b7..9527a7d30f0be92f168b5fb227107a93956f823c 100644
 --- a/src/main/java/com/gamingmesh/jobs/container/JobProgression.java
 +++ b/src/main/java/com/gamingmesh/jobs/container/JobProgression.java
 @@ -133,7 +133,7 @@ public class JobProgression {
