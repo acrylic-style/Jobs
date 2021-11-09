@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
 
 # you can change this to set the target to constant value
-export target="$2"
-if [ -z "$2" ]; then
-  echo "Warning: Empty target. Please specify a target to run patcher."
-  target="target"
-fi
-export branch="$3"
-if [ -z "$3" ]; then
-  echo "Warning: Empty branch. Please specify a branch to run patcher at."
-  branch="main"
-fi
+export target="Jobs"
+export branch="main"
 
 # resolve shell-specifics
 case "$(echo "$SHELL" | sed -E 's|/usr(/local)?||g')" in

@@ -1,3 +1,4 @@
 work/
-
-# add "target"s here
+.idea/
+*.iml
+Jobs/
