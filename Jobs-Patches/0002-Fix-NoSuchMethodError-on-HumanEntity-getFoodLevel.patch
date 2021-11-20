@@ -1,0 +1,20 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <me@acrylicstyle.xyz>
+Date: Sat, 20 Nov 2021 12:00:43 +0900
+Subject: [PATCH] Fix NoSuchMethodError on HumanEntity#getFoodLevel
+
+HumanEntity#getFoodLevel does not exist in 1.15
+
+diff --git a/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java b/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java
+index e955910e2d5999433e93dbd1a1c5da839944c892..1ae6b7aa92d24717ad5975654dd0c5e9596d7536 100644
+--- a/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java
++++ b/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java
+@@ -1460,7 +1460,7 @@ public class JobsPaymentListener implements Listener {
+     public void onPlayerEat(FoodLevelChangeEvent event) {
+ 	HumanEntity human = event.getEntity();
+ 
+-	if (event.getFoodLevel() <= human.getFoodLevel() || !(human instanceof Player)
++	if (!(human instanceof Player) || event.getFoodLevel() <= human.getFoodLevel()
+ 	    || !Jobs.getGCManager().canPerformActionInWorld(human.getWorld()) || human.hasMetadata("NPC"))
+ 	    return;
+ 
