@@ -6,15 +6,28 @@ Subject: [PATCH] Fix NoSuchMethodError on HumanEntity#getFoodLevel
 HumanEntity#getFoodLevel does not exist in 1.15
 
 diff --git a/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java b/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java
-index e955910e2d5999433e93dbd1a1c5da839944c892..1ae6b7aa92d24717ad5975654dd0c5e9596d7536 100644
+index e955910e2d5999433e93dbd1a1c5da839944c892..223b3f1e2ac626085cfbdc8693eb3058608703e9 100644
 --- a/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java
 +++ b/src/main/java/com/gamingmesh/jobs/listeners/JobsPaymentListener.java
-@@ -1460,7 +1460,7 @@ public class JobsPaymentListener implements Listener {
+@@ -1460,7 +1460,20 @@ public class JobsPaymentListener implements Listener {
      public void onPlayerEat(FoodLevelChangeEvent event) {
  	HumanEntity human = event.getEntity();
  
 -	if (event.getFoodLevel() <= human.getFoodLevel() || !(human instanceof Player)
-+	if (!(human instanceof Player) || event.getFoodLevel() <= human.getFoodLevel()
++	int foodLevel;
++	try {
++		java.lang.reflect.Method method;
++		try {
++			//noinspection JavaReflectionMemberAccess
++			method = Player.class.getDeclaredMethod("getFoodLevel");
++		} catch (NoSuchMethodException ex) {
++			method = HumanEntity.class.getDeclaredMethod("getFoodLevel");
++		}
++		foodLevel = (int) method.invoke(human);
++	} catch (ReflectiveOperationException ex) {
++		throw new RuntimeException(ex);
++	}
++	if (!(human instanceof Player) || event.getFoodLevel() <= foodLevel
  	    || !Jobs.getGCManager().canPerformActionInWorld(human.getWorld()) || human.hasMetadata("NPC"))
  	    return;
  
